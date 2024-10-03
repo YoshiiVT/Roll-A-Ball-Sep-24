@@ -8,11 +8,16 @@ public class PlayerController : MonoBehaviour
     public float speed = 1.0f;
     public float jumpSpeed = 1.0f;
     private Rigidbody rb;
+    private int pickupCount;
 
     void Start()
     {
         //Gets the rigidbody component attached to this GameObject
         rb = GetComponent<Rigidbody>();
+        //Gets the number of pickups in our scene
+        pickupCount = GameObject.FindGameObjectsWithTag("Pickup").Length;
+        //Run the CheckPickups Function
+        CheckPickups();
     }
 
     void FixedUpdate()
@@ -34,8 +39,34 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector3(0, jumpSpeed, 0));
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Pickup")
+        {
+            //Destroy the collided Object
+            Destroy(other.gameObject);
+            //Decrement the pickup count
+            pickupCount--;
+            // Run the Check Pickups Function
+            CheckPickups();
+        }
 
+    }
+    private void CheckPickups()
+    {
+        print("Pickups left: " + pickupCount);
+        if(pickupCount == 0)
+        {
+            Wingame();
+        }
+    }
+
+    private void Wingame()
+    {
+        print("SUGOI!! You win!");
+    }
 }
+
 
 //<This is called a comment, the system completely ignores this.
 //Variables = Something that will change
