@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 1.0f;
     private Rigidbody rb;
     private int pickupCount;
+    private Timer timer;
 
     void Start()
     {
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
         pickupCount = GameObject.FindGameObjectsWithTag("Pickup").Length;
         //Run the CheckPickups Function
         CheckPickups();
+        //Gets the timer object
+        timer = FindObjectOfType<Timer>();
+        timer.StartTimer();
     }
 
     void FixedUpdate()
@@ -63,7 +67,8 @@ public class PlayerController : MonoBehaviour
 
     private void Wingame()
     {
-        print("SUGOI!! You win!");
+        timer.StopTimer();  
+        print("SUGOI!! You win! Your time was: " + timer.GetTime().ToString("F2") + " Seconds");
     }
 }
 
