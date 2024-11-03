@@ -161,7 +161,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -210,13 +210,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620240164}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7576152, z: -0, w: 0.6527015}
-  m_LocalPosition: {x: -4.82, y: 1, z: 3.82}
+  m_LocalRotation: {x: 0.24917087, y: 0.7154679, z: -0.21466607, w: 0.6163912}
+  m_LocalPosition: {x: -7.12, y: 11.49, z: 3.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 98.509, z: 0}
+  m_LocalEulerAnglesHint: {x: 37.904, y: 100.808, z: 6.689}
 --- !u!114 &620240168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,12 +255,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &860138761
 GameObject:
   m_ObjectHideFlags: 0
