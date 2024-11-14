@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     private Timer timer;
     private bool gameOver = false;
 
+    //Reset Zone Variables
+    GameObject resetPoint;
+    bool resetting = false;
+    Color originalcolour;
+
     [Header("UI")]
     public TMP_Text pickupText;
     public TMP_Text timerText;
@@ -44,6 +49,10 @@ public class PlayerController : MonoBehaviour
 
         //Turn off our win panel
         winPanel.SetActive(false);
+
+        //Reset Zone Code
+        resetPoint = GameObject.Find("Reset Point");
+        originalcolour = GetComponent<Renderer>().material.color;
     }
 
     private void Update()
@@ -71,6 +80,10 @@ public class PlayerController : MonoBehaviour
 
             rb.AddForce(new Vector3(0, jumpSpeed, 0));
         }
+
+        //Reset Zone Shit
+        if (resetting)
+            return;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -127,6 +140,32 @@ public class PlayerController : MonoBehaviour
     public void ResetGame()
     {
        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Respawn"))
+        {
+            StartCoroutine(ResetPlayer());
+        }
+    }
+    public IEnumerator ResetPlayer() 
+    {
+        resetting = true;
+        GetComponent <Renderer>().material.color = Color.black;
+        rb.velocity = Vector3.zero;
+        Vector3 startPos = transform.position;
+        float resetSpeed = 2f;
+        var i = 0.0f;
+        var rate = 1.0f / resetSpeed;
+        while (i < 1.0f)
+        {
+            i += Time.deltaTime * rate;
+            transform.position = Vector3.Lerp(startPos, resetPoint.transform.position, i);
+            yield return null;
+        }
+        GetComponent<Renderer>().material.color = originalcolour;
+        resetting = false;
     }
 }
 
