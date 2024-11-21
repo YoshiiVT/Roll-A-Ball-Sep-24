@@ -27,7 +27,7 @@ public class Pause : MonoBehaviour
         if (isPaused)
         {
             pausePanel.SetActive(true);
-            Time.timeScale = 1;
+            Time.timeScale = 0;
         }
         else 
         {
