@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
         //Reset Zone Code
         resetPoint = GameObject.Find("Reset Point");
         originalcolour = GetComponent<Renderer>().material.color;
+
+        //Pause Script
+        Time.timeScale = 1;
     }
 
     private void Update()
