@@ -4,17 +4,22 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
-
-    public float speed = 1.0f;
-    public float jumpSpeed = 1.0f;
+    public float Speed = 10;
+    //public float jumpSpeed = 1.0f;
     private Rigidbody rb;
+
+
     private int pickupCount;
     private int totalPickups;
     private float pickupChunk;
+
+    //Timer
     private Timer timer;
-    private bool gameOver = false;
+
+    //Game Over Screen
+    public bool gameOver = false;
 
     //Reset Zone Variables
     GameObject resetPoint;
@@ -29,10 +34,13 @@ public class PlayerController : MonoBehaviour
     public TMP_Text winTimeText;
     public GameObject inGamePanel;
 
+    public GameObject losePanel;
+
     void Start()
     {
         //Gets the rigidbody component attached to this GameObject
         rb = GetComponent<Rigidbody>();
+
         //Gets the number of pickups in our scene
         pickupCount = GameObject.FindGameObjectsWithTag("Pickup").Length;
         //Assign the toal amount of pickups
@@ -50,6 +58,8 @@ public class PlayerController : MonoBehaviour
         //Turn off our win panel
         winPanel.SetActive(false);
 
+        losePanel.SetActive(false);
+
         //Reset Zone Code
         resetPoint = GameObject.Find("Reset Point");
         originalcolour = GetComponent<Renderer>().material.color;
@@ -60,13 +70,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        timerText.text = "Time: " + timer.currentTime.ToString("F2"); 
+        timerText.text = "Time: " + timer.currentTime.ToString("F2");
     }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (gameOver == true)
             return;
+
         //Store the horizontal axis value in a float
         float moveHorizontal = Input.GetAxis("Horizontal");
         //Store the Vertical axis value in a float
@@ -76,21 +86,22 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
         //Add force to our rigidbody from our movement vectore * Speed variable
-        rb.AddForce(movement * speed * Time.deltaTime);
+        rb.AddForce(movement * Speed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump"))
-        {
+        // if (Input.GetButtonDown("Jump"))
+        //{
 
-            rb.AddForce(new Vector3(0, jumpSpeed, 0));
-        }
+        // rb.AddForce(new Vector3(0, jumpSpeed, 0));
+        // }
 
         //Reset Zone Shit
         if (resetting)
             return;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Pickup")
+        if (other.gameObject.tag == "Pickup")
         {
             //Destroy the collided Object
             Destroy(other.gameObject);
@@ -105,7 +116,7 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckPickups()
     {
-       
+
         //Do text stuff
         print("Pickups left: " + pickupCount);
         pickupText.text = "Pickups left: " + pickupCount.ToString();
@@ -121,7 +132,7 @@ public class PlayerController : MonoBehaviour
         gameOver = true;
 
         //Stop the timer
-        timer.StopTimer();  
+        timer.StopTimer();
         print("SUGOI!! You win! Your time was: " + timer.GetTime().ToString("F2") + " Seconds");
 
         //Display the timer on our win time text
@@ -136,7 +147,20 @@ public class PlayerController : MonoBehaviour
         //Stop the ball from rolling
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        
+
+    }
+    public void LoseGame()
+    {
+        gameOver = true;
+
+        timer.StopTimer();
+
+        losePanel.SetActive(true);
+
+        inGamePanel.SetActive(false);
+
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     //Temporary restart function
