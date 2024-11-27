@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float Speed = 10;
-    //public float jumpSpeed = 1.0f;
+ 
     private Rigidbody rb;
 
 
@@ -36,6 +35,8 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject losePanel;
 
+    private PlayerController playerController;
+
     void Start()
     {
         //Gets the rigidbody component attached to this GameObject
@@ -60,45 +61,17 @@ public class PlayerScript : MonoBehaviour
 
         losePanel.SetActive(false);
 
-        //Reset Zone Code
-        resetPoint = GameObject.Find("Reset Point");
-        originalcolour = GetComponent<Renderer>().material.color;
-
         //Pause Script
         Time.timeScale = 1;
+
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
     {
         timerText.text = "Time: " + timer.currentTime.ToString("F2");
     }
-    private void FixedUpdate()
-    {
-        if (gameOver == true)
-            return;
-
-        //Store the horizontal axis value in a float
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        //Store the Vertical axis value in a float
-        float moveVertical = Input.GetAxis("Vertical");
-
-        //Create a new Vector3 based on the horizontal and vertical values 
-        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
-
-        //Add force to our rigidbody from our movement vectore * Speed variable
-        rb.AddForce(movement * Speed * Time.deltaTime);
-
-        // if (Input.GetButtonDown("Jump"))
-        //{
-
-        // rb.AddForce(new Vector3(0, jumpSpeed, 0));
-        // }
-
-        //Reset Zone Shit
-        if (resetting)
-            return;
-    }
-
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Pickup")
@@ -130,6 +103,7 @@ public class PlayerScript : MonoBehaviour
     {
         //Sets game over to true
         gameOver = true;
+        playerController.gameOver = true;
 
         //Stop the timer
         timer.StopTimer();
@@ -169,31 +143,6 @@ public class PlayerScript : MonoBehaviour
        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Respawn"))
-        {
-            StartCoroutine(ResetPlayer());
-        }
-    }
-    public IEnumerator ResetPlayer() 
-    {
-        resetting = true;
-        GetComponent <Renderer>().material.color = Color.black;
-        rb.velocity = Vector3.zero;
-        Vector3 startPos = transform.position;
-        float resetSpeed = 2f;
-        var i = 0.0f;
-        var rate = 1.0f / resetSpeed;
-        while (i < 1.0f)
-        {
-            i += Time.deltaTime * rate;
-            transform.position = Vector3.Lerp(startPos, resetPoint.transform.position, i);
-            yield return null;
-        }
-        GetComponent<Renderer>().material.color = originalcolour;
-        resetting = false;
-    }
 }
 
 
