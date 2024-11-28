@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Probuilder.unity
     guid: 61d06317ac5cc7146b9ea9e7701d3e1d
+  - enabled: 1
+    path: Assets/Scenes/Levels/Lvl II.unity
+    guid: b778dd7cf0110b34495c694af5e0d8d4
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tutorial - Lvl I.unity
+    guid: 91284110210a2ce4daa81a98cb9d8efd
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 785e6006920ee1f4eae91952f50592ab
   m_configObjects: {}
