@@ -543,6 +543,9 @@ MonoBehaviour:
   CannonDamage: 3
   BulletDamage: 2
   BoulderDamage: 5
+  enemies: []
+  enemy: {fileID: 7805821587501765088, guid: 2e40e561982259b4d838627ff3e266f4, type: 3}
+  enemyAmount: 10
 --- !u!65 &1394984146
 BoxCollider:
   m_ObjectHideFlags: 0

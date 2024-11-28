@@ -11,9 +11,22 @@ public class DamageSystem : MonoBehaviour
     public int BulletDamage = 1;
     public int BoulderDamage = 3;
 
+    [Header("Arrays")]
+    public GameObject[] enemies;
+    public GameObject enemy;
+    public int enemyAmount = 10;
+
     void Start()
     {
-        
+        for (int i = 0; i < enemyAmount; i++) 
+        {
+            Instantiate(enemy, new Vector3(Random.Range(-10,10), Random.Range(5, 15), 0), transform.rotation);
+        }
+
+        for (int i = 0; i < enemies.Length; i++)
+        { 
+            print(enemies[i].name);
+        }
     }
 
   
