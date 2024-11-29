@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class PlayerController : MonoBehaviour
 
     private PlayerScript PlayerScript;
 
+    public bool gameOver = false;
+
     //Reset Zone Variables
     GameObject resetPoint;
     bool resetting = false;
     Color originalcolour;
 
-    public bool gameOver = false;
+
+    //Controllers
+    GameController gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +33,12 @@ public class PlayerController : MonoBehaviour
         //Gets the rigidbody component attached to this GameObject
         rb = GetComponent<Rigidbody>();
 
+
+
         //Reset Zone Code
         resetPoint = GameObject.Find("Reset Point");
         originalcolour = GetComponent<Renderer>().material.color;
+        gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -62,6 +70,12 @@ public class PlayerController : MonoBehaviour
     {
         if (gameOver == true)
             return;
+       
+        if (resetting)
+            return;
+        
+        if (gameController.controlType == ControlType.Worldtilt)
+            return;
 
         //Store the horizontal axis value in a float
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -81,14 +95,21 @@ public class PlayerController : MonoBehaviour
         // }
 
         //Reset Zone Shit
-        if (resetting)
-            return;
+        
     }
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Respawn"))
         {
             StartCoroutine(ResetPlayer());
+        }
+
+        if (collision.gameObject.tag == "Hazard")
+        {
+            TakeDamage(1);
+            
+            //Need brendans help in adding a delay
+            //GetComponent<Renderer>().material.color = Color.red;
         }
     }
     public IEnumerator ResetPlayer()

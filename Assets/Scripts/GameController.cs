@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public ControlType controlType;
 
+    
     private void Awake()
     {
         if (instance == null)
@@ -25,9 +26,9 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void ToggleWorldTilt(bool _titlt)
+    public void ToggleWorldTilt(bool _tilt)
     {
-        if (_titlt) 
+        if (_tilt) 
             controlType = ControlType.Worldtilt;
         else 
             controlType = ControlType.Normal;

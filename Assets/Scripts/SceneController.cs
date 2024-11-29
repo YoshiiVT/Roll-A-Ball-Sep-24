@@ -11,6 +11,12 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(_sceneName);
     }
 
+    public void TutorialScene(string _Level1)
+    {
+        GameController.instance.controlType = ControlType.Normal;
+        SceneManager.LoadScene(_Level1);
+    }
+
     // Reloads the current scene we are in
     public void Reloadscene()
     {
@@ -19,6 +25,7 @@ public class SceneController : MonoBehaviour
     // Loads out Title scene. Must be called Title exactly
     public void ToTitleScene()
     {
+        GameController.instance.controlType = ControlType.Normal;
         SceneManager.LoadScene("Title");
     }
     // Gets out active scenes name

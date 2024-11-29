@@ -41,5 +41,14 @@ public class HealthSystem : MonoBehaviour
        
         PlayerScript.LoseGame();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Hazard")
+        {
+            TakeDamage(1);
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
 }
 

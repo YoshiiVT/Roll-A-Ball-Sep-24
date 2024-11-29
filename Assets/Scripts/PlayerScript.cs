@@ -20,17 +20,17 @@ public class PlayerScript : MonoBehaviour
     //Game Over Screen
     public bool gameOver = false;
 
-    //Reset Zone Variables
-    GameObject resetPoint;
-    bool resetting = false;
-    Color originalcolour;
-
     [Header("UI")]
     public TMP_Text pickupText;
-    public TMP_Text timerText;
     public Image pickupImage;
+
     public GameObject winPanel;
+
+    public TMP_Text HealthText;
+
+    public TMP_Text timerText;
     public TMP_Text winTimeText;
+    
     public GameObject inGamePanel;
 
     public GameObject losePanel;
