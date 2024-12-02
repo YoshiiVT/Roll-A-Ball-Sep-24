@@ -11,10 +11,10 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(_sceneName);
     }
 
-    public void TutorialScene(string _Level1)
+    public void TutorialScene(string _sceneName)
     {
+        SceneManager.LoadScene(_sceneName);
         GameController.instance.controlType = ControlType.Normal;
-        SceneManager.LoadScene(_Level1);
     }
 
     // Reloads the current scene we are in
