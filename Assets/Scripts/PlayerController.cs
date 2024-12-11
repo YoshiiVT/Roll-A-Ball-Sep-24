@@ -26,9 +26,15 @@ public class PlayerController : MonoBehaviour
     //Controllers
     GameController gameController;
 
+    //Powerups
+    [HideInInspector]
+    public float baseSpeed;
+    Powerup Powerup;
+
     // Start is called before the first frame update
     void Start()
     {
+        baseSpeed = Speed;
         PlayerScript = GetComponent<PlayerScript>();
         //Gets the rigidbody component attached to this GameObject
         rb = GetComponent<Rigidbody>();
@@ -39,6 +45,7 @@ public class PlayerController : MonoBehaviour
         resetPoint = GameObject.Find("Reset Point");
         originalcolour = GetComponent<Renderer>().material.color;
         gameController = FindObjectOfType<GameController>();
+        Powerup = FindObjectOfType<Powerup>();
     }
 
     // Update is called once per frame
@@ -129,5 +136,14 @@ public class PlayerController : MonoBehaviour
         }
         GetComponent<Renderer>().material.color = originalcolour;
         resetting = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Powerup"))
+        {
+            other.GetComponent<Powerup>().UsePowerup();
+            other.gameObject.transform.position = Vector3.up * 10;
+        }
     }
 }
