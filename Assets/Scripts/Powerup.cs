@@ -32,7 +32,7 @@ public class Powerup : MonoBehaviour
         if (myPowerup == PowerupType.Grow)
         {
             Vector3 temp = playerController.gameObject.transform.position;
-            temp.y = 1;
+            temp.y += 1;
             playerController.gameObject.transform.position = temp;
             playerController.gameObject.transform.localScale = Vector3.one * 2;
         }
